@@ -23,6 +23,12 @@ public class Project implements Serializable {
      */
     private String name;
 
+    private String typesSection;
+
+    private String projectType;
+
+    private int weightId;
+
 
     @Override
     public boolean equals(Object that) {

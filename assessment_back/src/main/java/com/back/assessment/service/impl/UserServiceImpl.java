@@ -1,6 +1,6 @@
 package com.back.assessment.service.impl;
 
-import com.back.assessment.mail.MailMail;
+import com.back.assessment.dto.MailMail;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.back.assessment.entity.User;

@@ -14,4 +14,5 @@ public interface ProjectService extends IService<Project> {
         Project getProjectById(int id);
 //        List<Project> fuzzy_search(String name);
         List<Project> getProjectsByName(String name);
+        void changeProjectWeight(int projectId, int weightId);
 }

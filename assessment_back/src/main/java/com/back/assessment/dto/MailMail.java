@@ -1,4 +1,4 @@
-package com.back.assessment.mail;
+package com.back.assessment.dto;
 
 import com.back.assessment.service.impl.RedisCacheServiceImpl;
 import jakarta.annotation.Resource;

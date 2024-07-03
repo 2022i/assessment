@@ -29,6 +29,15 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
        return List.of();
    }
 
+   @Override
+    public void changeProjectWeight(int projectId, int weightId) {
+        //获取指定项目的Project实体，根据weightId改变其weightId属性
+        Project project = getProjectById(projectId);
+        project.setWeightId(weightId);
+        //更新数据库
+        baseMapper.updateById(project);
+    }
+
 
 }
 

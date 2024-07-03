@@ -25,7 +25,7 @@ public class SearchController {
     @Resource
     private ProjectMapper projectMapper;
 
-    @GetMapping("project")
+    @GetMapping("searchProjectById")
     public Project getProjectById(@RequestParam("projectId") int projectId) {
         return projectService.getProjectById(projectId);
     }
@@ -36,11 +36,21 @@ public class SearchController {
 //        return   projectService.fuzzy_search(name);
 //    }
 
-    @GetMapping("/f_se")
+    @GetMapping("/fuzzySearchProjectByName")
     public List<Project> getProjectByName(@RequestParam("name") String name) {
         QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name", "%"+name+"%");
         List<Project> projectList = projectMapper.selectList(queryWrapper);
         return projectList;
     }
+
+//    //Project的属性name的模糊查询
+//    @GetMapping("/testTask")
+//    public List<Project> fuzzy_search(@RequestParam("name") String name) {
+//        QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.like("name", "%"+name+"%");
+//        List<Project> projectList = projectMapper.selectList(queryWrapper);
+//        return projectList;
+//    }
+
 }

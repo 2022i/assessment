@@ -1,6 +1,6 @@
 package com.back.assessment;
 
-import com.back.assessment.mail.MailMail;
+import com.back.assessment.dto.MailMail;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

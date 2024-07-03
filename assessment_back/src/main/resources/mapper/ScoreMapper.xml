@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.back.assessment.mapper.ScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.back.assessment.entity.Score">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="tIndicatorScore" column="t_indicator_score" jdbcType="FLOAT"/>
+            <result property="tAssessmentScore" column="t_assessment_score" jdbcType="FLOAT"/>
+            <result property="tWeightedScore" column="t_weighted_score" jdbcType="FLOAT"/>
+            <result property="dIndicatorScore" column="d_indicator_score" jdbcType="FLOAT"/>
+            <result property="dIndicatorScoreC" column="d_indicator_score_c" jdbcType="FLOAT"/>
+            <result property="dAssessmentScore" column="d_assessment_score" jdbcType="FLOAT"/>
+            <result property="dWeightedScore" column="d_weighted_score" jdbcType="FLOAT"/>
+            <result property="uIndicatorScore" column="u_indicator_score" jdbcType="FLOAT"/>
+            <result property="uAssessmentScore" column="u_assessment_score" jdbcType="FLOAT"/>
+            <result property="uWeightedScore" column="u_weighted_score" jdbcType="FLOAT"/>
+            <result property="totalScore" column="total_score" jdbcType="DOUBLE"/>
+            <result property="weightId" column="weight_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,t_indicator_score,t_assessment_score,
+        t_weighted_score,d_indicator_score,d_indicator_score_c,
+        d_assessment_score,d_weighted_score,u_indicator_score,
+        u_assessment_score,u_weighted_score,total_score,
+        weight_id
+    </sql>
+</mapper>
