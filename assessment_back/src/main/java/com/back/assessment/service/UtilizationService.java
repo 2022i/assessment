@@ -10,5 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UtilizationService extends IService<Utilization> {
     void changeWeightId(Integer id, Integer weightId);
-
+    Utilization getUtilizationById(Integer id);
 }

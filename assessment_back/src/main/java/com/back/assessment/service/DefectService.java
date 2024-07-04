@@ -10,4 +10,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface DefectService extends IService<Defect> {
     void changeWeightId(int projectId,int weightId);
+    Defect getDefectById(int id);
 }

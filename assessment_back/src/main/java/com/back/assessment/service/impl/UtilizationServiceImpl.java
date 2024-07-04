@@ -21,6 +21,11 @@ public class UtilizationServiceImpl extends ServiceImpl<UtilizationMapper, Utili
         utilization.setWeightId(weightId);
         baseMapper.updateById(utilization);
     }
+
+    @Override
+    public Utilization getUtilizationById(Integer id) {
+        return baseMapper.selectById(id);
+    }
 }
 
 

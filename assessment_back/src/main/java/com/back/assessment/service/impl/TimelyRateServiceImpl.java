@@ -22,6 +22,11 @@ public class TimelyRateServiceImpl extends ServiceImpl<TimelyRateMapper, TimelyR
         baseMapper.updateById(timelyRate);
     }
 
+    @Override
+    public TimelyRate getTimelyRateById(Integer id) {
+        return baseMapper.selectById(id);
+    }
+
 }
 
 

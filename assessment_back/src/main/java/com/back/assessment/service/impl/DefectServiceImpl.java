@@ -25,6 +25,11 @@ public class DefectServiceImpl extends ServiceImpl<DefectMapper, Defect>
         baseMapper.updateById(defect);
     }
 
+    @Override
+    public Defect getDefectById(int id) {
+        return baseMapper.selectById(id);
+    }
+
 }
 
 
