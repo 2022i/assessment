@@ -1,6 +1,6 @@
-package com.back.assessment.dto;
+package com.back.assessment.service.impl;
 
-import com.back.assessment.service.impl.RedisCacheServiceImpl;
+import com.back.assessment.service.MailService;
 import jakarta.annotation.Resource;
 import jakarta.mail.internet.MimeMessage;
 import lombok.Data;
@@ -19,7 +19,7 @@ import org.thymeleaf.context.Context;
  */
 @Data
 @Service
-public class MailMail{
+public class MailServiceImpl implements MailService {
     @Resource
     private JavaMailSender mailSender;
     @Resource
@@ -27,6 +27,7 @@ public class MailMail{
     @Resource
     private RedisCacheServiceImpl redisCacheService;
 
+    @Override
     public void sendMail(String from, String to, String subject) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -51,6 +52,7 @@ public class MailMail{
         }
     }
 
+    @Override
     public void mailSend(String to) {
         sendMail("2383195232@qq.com",to,"项目考核系统注册验证码");
     }

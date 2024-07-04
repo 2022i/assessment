@@ -1,12 +1,12 @@
 package com.back.assessment.service.impl;
 
-import com.back.assessment.dto.MailMail;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.back.assessment.entity.User;
 import com.back.assessment.service.UserService;
 import com.back.assessment.mapper.UserMapper;
 import jakarta.annotation.Resource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,30 +17,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService{
     @Resource
-    private MailMail mailMail;
+    private MailServiceImpl mailServiceImpl;
 
     @Resource
     private RedisCacheServiceImpl redisCacheServiceImpl;
-    @Override
-    public boolean selectUserByEmail(String email) {
 
-        User user = baseMapper.selectById(email);
-        return user != null;
+    @Resource
+    private EncodingSelectionServiceImpl encodingSelectionService;
+    @Override
+    public User selectUserByEmail(String email) {
+
+        return baseMapper.selectById(email);
     }
 
     @Override
-    public boolean selectUserByUsername(String username) {
+    public User selectUserByUsername(String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
-        User user = baseMapper.selectOne(queryWrapper);
-        return user != null;
+        return baseMapper.selectOne(queryWrapper);
     }
 
 
     @Override
     public  boolean loginByEmail(String email, String password){
         User user = baseMapper.selectById(email);
-        return user.getPassword().equals(password);
+        PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
+        return passwordEncoder.matches(password,user.getPassword());
     }
 
     @Override
@@ -48,12 +50,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         User user = baseMapper.selectOne(queryWrapper);
-        return user.getPassword().equals(password);
+        PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
+        return passwordEncoder.matches(password,user.getPassword());
     }
 
     @Override
     public void mailMail(String email){
-        mailMail.mailSend(email);
+        mailServiceImpl.mailSend(email);
     }
 
     @Override

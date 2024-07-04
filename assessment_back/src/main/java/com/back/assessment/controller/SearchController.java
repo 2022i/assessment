@@ -1,20 +1,16 @@
 package com.back.assessment.controller;
 
 
-import com.back.assessment.dto.Request;
 import com.back.assessment.entity.Project;
 import com.back.assessment.mapper.ProjectMapper;
 import com.back.assessment.service.impl.ProjectServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

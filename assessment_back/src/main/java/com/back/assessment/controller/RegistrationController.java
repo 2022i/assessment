@@ -22,8 +22,8 @@ public class RegistrationController {
     public Request<String>mailMail(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String username = loginRequest.getUsername();
-        if (!userService.selectUserByEmail(email)) {
-            if(!userService.selectUserByUsername(username)){
+        if (userService.selectUserByEmail(email)==null) {
+            if(userService.selectUserByUsername(username)==null){
                userService.mailMail(email);
                return Request.successMail(email);
             }else{

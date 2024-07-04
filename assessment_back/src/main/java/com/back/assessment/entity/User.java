@@ -1,11 +1,16 @@
 package com.back.assessment.entity;
 
+import com.back.assessment.service.impl.EncodingSelectionServiceImpl;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
+
+import jakarta.annotation.Resource;
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * 
@@ -35,6 +40,12 @@ public class User implements Serializable {
      */
     @TableId
     private String email;
+
+    public void setPassword(String password) {
+        EncodingSelectionServiceImpl encodingSelectionService = new EncodingSelectionServiceImpl();
+        PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
 
 
     @Override

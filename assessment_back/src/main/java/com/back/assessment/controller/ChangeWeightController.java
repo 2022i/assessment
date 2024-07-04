@@ -1,5 +1,6 @@
 package com.back.assessment.controller;
 
+import com.back.assessment.dto.Request;
 import com.back.assessment.service.impl.ChangeWeightServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,9 @@ public class ChangeWeightController {
     private ChangeWeightServiceImpl changeWeightService;
 
     @PostMapping("/changeWeight")
-    public String changeWeight(@RequestParam int projectId, @RequestParam int weightId) {
+    public Request<String> changeWeight(@RequestParam int projectId, @RequestParam int weightId) {
         changeWeightService.changeWeight(projectId, weightId);
-        return "success";
+        return Request.success();
     }
 
 }

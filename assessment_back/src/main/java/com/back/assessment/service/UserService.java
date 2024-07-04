@@ -10,8 +10,8 @@ import org.apache.ibatis.annotations.Param;
 * @createDate 2024-07-01 19:30:36
 */
 public interface UserService extends IService<User> {
-    boolean selectUserByEmail(String email);
-    boolean selectUserByUsername(String username);
+    User selectUserByEmail(String email);
+    User selectUserByUsername(String username);
     boolean loginByEmail(String username, String password);
     boolean loginByUsername(String username,  String password);
     void mailMail(String email);
