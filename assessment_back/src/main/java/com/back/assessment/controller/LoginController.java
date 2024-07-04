@@ -1,8 +1,10 @@
 package com.back.assessment.controller;
 
+import cn.hutool.crypto.SecureUtil;
 import com.back.assessment.dto.LoginByEmailRequest;
 import com.back.assessment.dto.LoginByUsernameRequest;
 import com.back.assessment.dto.Request;
+import com.back.assessment.service.impl.RedisCacheServiceImpl;
 import com.back.assessment.service.impl.UserServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lzz
@@ -23,17 +27,17 @@ public class LoginController {
     private UserServiceImpl userService;
 
     @Resource
-    private AuthenticationManager authenticationManager;
+    private RedisCacheServiceImpl redisCacheService;
 
     @PostMapping("/loginByUsername")
     public Request<String> loginByUsername(@RequestBody LoginByUsernameRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
-//        Authentication usernamePasswordAuthentication =
-//                UsernamePasswordAuthenticationToken.unauthenticated(username, password);
         if (userService.selectUserByUsername(username)!=null) {
             if (userService.loginByUsername(username, password)) {
-                return Request.successLogin(username);
+                String token = SecureUtil.md5(loginRequest.toString());
+                redisCacheService.set(token,loginRequest.getUsername());
+                return Request.successLogin(token);
             } else {
                 return Request.errorPassword();
             }

@@ -41,13 +41,6 @@ public class User implements Serializable {
     @TableId
     private String email;
 
-    public void setPassword(String password) {
-        EncodingSelectionServiceImpl encodingSelectionService = new EncodingSelectionServiceImpl();
-        PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
-        this.password = passwordEncoder.encode(password);
-    }
-
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {

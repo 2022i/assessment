@@ -43,14 +43,14 @@ public class TokenFilter extends OncePerRequestFilter {
         // 有token-不需要再username-password认证，否则需要
         if (StrUtil.isNotEmpty(token)) {
             //从缓存中得到token对应的admin
-            String storedToken = rcs.get(token);
-            if(storedToken!=null){
+            String storedUsername = rcs.get(token);
+            if(storedUsername!=null){
                 // TODO 从token中获取主体名称，再从缓存中获取主体权限
                 List<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority("user:query");
                 authorities.add(authority);
 
-                Authentication authentication = UsernamePasswordAuthenticationToken.authenticated("admin", null, authorities);
+                Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(storedUsername, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

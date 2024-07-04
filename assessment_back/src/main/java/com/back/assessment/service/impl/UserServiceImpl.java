@@ -24,6 +24,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private EncodingSelectionServiceImpl encodingSelectionService;
+
     @Override
     public User selectUserByEmail(String email) {
 
@@ -51,6 +52,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.eq("username", username);
         User user = baseMapper.selectOne(queryWrapper);
         PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
+        System.out.println(password);
+        System.out.println(user.getPassword());
+        System.out.println(passwordEncoder.matches(password,user.getPassword()));
         return passwordEncoder.matches(password,user.getPassword());
     }
 
@@ -65,7 +69,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user = new User();
             user.setUsername(username);
             user.setEmail(email);
-            user.setPassword(password);
+            PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
+            String passwordEncoded = passwordEncoder.encode(password);
+            user.setPassword(passwordEncoded);
             baseMapper.insert(user);
             return true;
         }

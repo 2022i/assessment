@@ -23,7 +23,7 @@ class AssessmentApplicationTests {
 	@Test
 	void testEncoder(){
 		PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
-		String password="123456";
+		String password="666";
 		String password2 = passwordEncoder.encode(password);
 		System.out.println(password2);
 		System.out.println(passwordEncoder.matches(password,password2));

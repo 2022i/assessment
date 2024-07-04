@@ -9,6 +9,8 @@ public interface RedisCacheService {
 
     void set(String key, String value,long timeout, TimeUnit unit) ;
 
+    void set(String key, String value) ;
+
     String get(String key) ;
 
     Long del(String... key) ;
