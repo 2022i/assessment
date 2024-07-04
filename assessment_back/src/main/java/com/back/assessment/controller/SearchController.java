@@ -31,6 +31,8 @@ public class SearchController {
     }
 
 
+
+
     @GetMapping("/fuzzySearchProjectByName")
     public List<Project> getProjectByName(@RequestParam("name") String name) {
         QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
@@ -62,5 +64,8 @@ public class SearchController {
         int totalPages = (int) Math.ceil((double) totalRecords / size);
         return totalPages;
     }
+
+
+
 
 }

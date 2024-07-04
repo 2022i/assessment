@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.back.assessment.mapper.ProjectTimeMapper">
+
+    <resultMap id="BaseResultMap" type="com.back.assessment.entity.ProjectTime">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="timelinessRate" column="timeliness_rate" jdbcType="FLOAT"/>
+            <result property="indicatorScore" column="indicator_score" jdbcType="FLOAT"/>
+            <result property="assessmentScore" column="assessment_score" jdbcType="FLOAT"/>
+            <result property="weightedScore" column="weighted_score" jdbcType="FLOAT"/>
+            <result property="weightId" column="weight_id" jdbcType="INTEGER"/>
+            <result property="pStart" column="p_start" jdbcType="TIMESTAMP"/>
+            <result property="pEnd" column="p_end" jdbcType="TIMESTAMP"/>
+            <result property="aStart" column="a_start" jdbcType="TIMESTAMP"/>
+            <result property="aEnd" column="a_end" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,timeliness_rate,indicator_score,
+        assessment_score,weighted_score,weight_id,
+        p_start,p_end,a_start,
+        a_end
+    </sql>
+</mapper>
