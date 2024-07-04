@@ -1,18 +1,18 @@
 package com.back.assessment.controller;
 
-
+import com.back.assessment.dto.Request;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.back.assessment.entity.Project;
 import com.back.assessment.mapper.ProjectMapper;
 import com.back.assessment.service.impl.ProjectServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("http://localhost:8081")
 @RestController
 @RequestMapping("/search")
 public class SearchController {
@@ -23,30 +23,44 @@ public class SearchController {
 
     @GetMapping("searchProjectById")
     public Project getProjectById(@RequestParam("projectId") int projectId) {
-        return projectService.getProjectById(projectId);
+        Project project = projectService.getProjectById(projectId);
+        if(project == null) {
+           return Request.notFoundProjectId(projectId);
+        }
+        return project;
     }
 
-    //模糊查询方法一
-//    @GetMapping( "/testTask")
-//    public List<Project> fuzzy_search(@RequestParam("name") String name) {
-//        return   projectService.fuzzy_search(name);
-//    }
 
     @GetMapping("/fuzzySearchProjectByName")
     public List<Project> getProjectByName(@RequestParam("name") String name) {
         QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name", "%"+name+"%");
         List<Project> projectList = projectMapper.selectList(queryWrapper);
+        if(projectList.isEmpty()){
+         return Request.notFoundProject();
+        }
         return projectList;
     }
 
-//    //Project的属性name的模糊查询
-//    @GetMapping("/testTask")
-//    public List<Project> fuzzy_search(@RequestParam("name") String name) {
-//        QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
+
+
+    @GetMapping("/searchProjectByPage")
+    public Page<Project> getProjectByPage(@RequestParam("page") int page, @RequestParam("size") int size) {
+        QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
+        Page<Project> projectPage = new Page<>(page, size);
 //        queryWrapper.like("name", "%"+name+"%");
-//        List<Project> projectList = projectMapper.selectList(queryWrapper);
-//        return projectList;
-//    }
+        projectPage = projectMapper.selectPage(projectPage, queryWrapper);
+        return projectPage;
+    }
+
+    @PostMapping("/getPageCount")
+    public int getPageByID(@RequestParam("size") int size) {
+        QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
+        // 获取总数据量
+        int totalRecords = Math.toIntExact(projectMapper.selectCount(queryWrapper));
+        // 获取总页数
+        int totalPages = (int) Math.ceil((double) totalRecords / size);
+        return totalPages;
+    }
 
 }

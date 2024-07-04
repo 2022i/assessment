@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TimelyRateServiceImpl extends ServiceImpl<TimelyRateMapper, TimelyRate>
     implements TimelyRateService{
-    //Override
-    public void updateWightId(Integer id, Integer weightId) {
+    @Override
+    public void updateWeightId(Integer id, Integer weightId) {
         //修改指定id的TimelyRate实体的weightId字段
         TimelyRate timelyRate = this.getById(id);
         timelyRate.setWeightId(weightId);

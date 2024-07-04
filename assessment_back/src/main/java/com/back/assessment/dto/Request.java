@@ -1,6 +1,10 @@
 package com.back.assessment.dto;
 
+import com.back.assessment.entity.Project;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lzz
@@ -92,6 +96,26 @@ public class Request<T>{
         Request<T> result = new Request<>();
         result.setCode(status.getCode());
         result.setMsg(status.getMsg());
+        return result;
+    }
+
+
+    public static List<Project> notFoundProject() {
+        Request<List<Project>> result = new Request<>();
+        result.setCode(404);
+        result.setMsg("没有找到项目");
+        return new ArrayList<>();
+    }
+
+//    public static List<Project> successProject(List<Project> projectList) {
+//        Request<List<Project>> result = success();
+//        result.setCode(200);
+//        return projectList;
+//    }
+    public static Project notFoundProjectId(int id){
+        Project result = new Project();
+        result.setId(id);
+        result.setName("没有找到项目");
         return result;
     }
 }

@@ -10,6 +10,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TimelyRateService extends IService<TimelyRate> {
     //修改指定编号的TimelyRate实体的wightId字段
-    void updateWightId(Integer id, Integer wightId);
+    void updateWeightId(Integer id, Integer wightId);
 
 }

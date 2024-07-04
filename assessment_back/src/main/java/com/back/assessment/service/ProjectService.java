@@ -1,7 +1,9 @@
 package com.back.assessment.service;
 
 import com.back.assessment.entity.Project;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,4 +17,7 @@ public interface ProjectService extends IService<Project> {
 //        List<Project> fuzzy_search(String name);
         List<Project> getProjectsByName(String name);
         void changeProjectWeight(int projectId, int weightId);
+        Page<Project> getProjectByPage(int page, int size);
+
+        int getPageByID(@RequestParam("size") int size);
 }

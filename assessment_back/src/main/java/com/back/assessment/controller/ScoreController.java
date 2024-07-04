@@ -16,4 +16,6 @@ public class ScoreController {
     public Score getScore(@RequestParam int projectId) {
         return scoreService.selectScoreByProjectId(projectId);
     }
+
+
 }

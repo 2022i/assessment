@@ -22,7 +22,7 @@ public class ChangeWeightServiceImpl implements ChangeWeightService {
     public void changeWeight(int id, int weightId) {
         // TODO Auto-generated method stub
         projectService.changeProjectWeight(id,weightId);
-        timelyRateService.updateWightId(id,weightId);
+        timelyRateService.updateWeightId(id,weightId);
         defectService.changeWeightId(id,weightId);
         utilizationService.changeWeightId(id,weightId);
     }
