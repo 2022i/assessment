@@ -20,5 +20,4 @@ public class UtilizationController {
     public ProjectPerson getProjectPersonById(@RequestParam int id) {
         return projectPersonService.getProjectPersonById(id);
     }
-
 }
