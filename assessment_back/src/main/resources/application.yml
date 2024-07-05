@@ -1,7 +1,9 @@
 server:
   port: 8081
+  address: 0.0.0.0
   servlet:
     context-path: /server
+
 
 spring:
   mail:
