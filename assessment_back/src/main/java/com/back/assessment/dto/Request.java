@@ -30,6 +30,13 @@ public class Request<T>{
         return result;
     }
 
+    public static <T> Request<T> successSignOut() {
+        Request<T> result = new Request<>();
+        result.setCode(200);
+        result.setMsg("成功退出登录");
+        return result;
+    }
+
 
     public static <T> Request<T> notFoundUser(T data) {
         Request<T> result = new Request<>();

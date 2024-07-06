@@ -32,9 +32,6 @@ import java.util.List;
 public class TokenFilter extends OncePerRequestFilter {
     @Resource
     private RedisCacheServiceImpl rcs;
-    public TokenFilter(){
-        System.out.println("TokenFilter构造了");
-    }
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {

@@ -7,12 +7,7 @@ import com.back.assessment.dto.Request;
 import com.back.assessment.service.impl.RedisCacheServiceImpl;
 import com.back.assessment.service.impl.UserServiceImpl;
 import jakarta.annotation.Resource;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author lzz
@@ -52,7 +47,6 @@ public class LoginController {
             } else {
                 return Request.errorPassword();
             }
-
         }
         return Request.notFoundUser(email);
     }

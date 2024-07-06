@@ -9,13 +9,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin("http://localhost:8081")
 @RestController
 @RequestMapping("/search")
-public class SearchController {
+public class SearchProjectController {
     @Resource
     private ProjectServiceImpl projectService;
     @Resource
@@ -61,8 +60,7 @@ public class SearchController {
         // 获取总数据量
         int totalRecords = Math.toIntExact(projectMapper.selectCount(queryWrapper));
         // 获取总页数
-        int totalPages = (int) Math.ceil((double) totalRecords / size);
-        return totalPages;
+        return (int) Math.ceil((double) totalRecords / size);
     }
 
 
