@@ -1,52 +1,53 @@
 package com.back.assessment.controller;
 
 import com.back.assessment.dto.LoginRequest;
-import com.back.assessment.dto.Request;
+import com.back.assessment.dto.Response;
 import com.back.assessment.service.impl.UserServiceImpl;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jdk.jfr.Description;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lzz
  */
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/register")
 public class RegistrationController {
     @Resource
     private UserServiceImpl userService;
 
+    @Description("根据邮箱发送验证码")
     @PostMapping("/mailMail")
-    public Request<String>mailMail(@RequestBody LoginRequest loginRequest) {
+    public Response<String> mailMail(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String username = loginRequest.getUsername();
         if (userService.selectUserByEmail(email)==null) {
             if(userService.selectUserByUsername(username)==null){
                userService.mailMail(email);
-               return Request.successMail(email);
+               return Response.successMail(email);
             }else{
-                return Request.alreadyExistsUsername(username);
+                return Response.alreadyExistsUsername(username);
             }
 
 
         }else{
-            return Request.alreadyExistsEmail(email);
+            return Response.alreadyExistsEmail(email);
         }
     }
 
+    @Description("收到验证码并且将用户名、密码、验证码输入完毕后注册")
     @PostMapping("/registerByEmail")
-    public Request<String> registerByEmail(@RequestBody LoginRequest loginRequest) {
+    public Response<String> registerByEmail(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         String email = loginRequest.getEmail();
         String code = loginRequest.getCode();
         if(userService.registerUser(username,email,password,code)){
-            return Request.successRegister(username);
+            return Response.successRegister(username);
         }
         else {
-            return Request.errorCode();
+            return Response.errorCode();
         }
     }
 

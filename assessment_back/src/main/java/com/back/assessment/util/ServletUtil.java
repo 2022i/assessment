@@ -1,7 +1,7 @@
 package com.back.assessment.util;
 
 import cn.hutool.json.JSONUtil;
-import com.back.assessment.dto.Request;
+import com.back.assessment.dto.Response;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +20,7 @@ public class ServletUtil {
      * @param response 响应
      * @param msg      消息
      */
-    public static <T> void print(HttpServletResponse response, Request<T> msg) {
+    public static <T> void print(HttpServletResponse response, Response<T> msg) {
         try {
             response.setStatus(200);
             response.setContentType("application/json;charset=utf-8");

@@ -1,7 +1,7 @@
 package com.back.assessment.config;
 
 import com.back.assessment.dto.HttpStatus;
-import com.back.assessment.dto.Request;
+import com.back.assessment.dto.Response;
 import com.back.assessment.filter.TokenFilter;
 import com.back.assessment.util.ServletUtil;
 import jakarta.annotation.Resource;
@@ -56,8 +56,8 @@ public class SecurityConfig {
 
         // ExceptionTranslationFilter 异常处理器
         http.exceptionHandling(config -> config
-                .authenticationEntryPoint((request, response, exception) -> ServletUtil.print(response, Request.error(HttpStatus.FORBIDDEN)))
-                .accessDeniedHandler((request, response, exception) -> ServletUtil.print(response, Request.error(HttpStatus.FORBIDDEN)))
+                .authenticationEntryPoint((request, response, exception) -> ServletUtil.print(response, Response.error(HttpStatus.FORBIDDEN)))
+                .accessDeniedHandler((request, response, exception) -> ServletUtil.print(response, Response.error(HttpStatus.FORBIDDEN)))
         );
 
         // AuthorizationFilter 授权，除匿名接口外都需要认证
