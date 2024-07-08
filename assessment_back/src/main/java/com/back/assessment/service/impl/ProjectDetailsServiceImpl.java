@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author dell
 * @description 针对表【project_details】的数据库操作Service实现
-* @createDate 2024-07-08 11:00:03
+* @createDate 2024-07-08 11:45:31
 */
 @Service
 public class ProjectDetailsServiceImpl extends ServiceImpl<ProjectDetailsMapper, ProjectDetails>

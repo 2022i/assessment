@@ -16,7 +16,7 @@ import lombok.Data;
 public class ProjectDetails implements Serializable {
     /**
      * 项目编号
-     */
+     */@TableId
     private Integer id;
 
     /**
@@ -103,6 +103,26 @@ public class ProjectDetails implements Serializable {
      * 该指标占比编号
      */
     private Integer wT;
+
+    /**
+     * 
+     */
+    private Double totalScore;
+
+    /**
+     * 乘以指标权重的考核得分
+     */
+    private Double wST;
+
+    /**
+     * 乘以指标权重的得分
+     */
+    private Double wSU;
+
+    /**
+     * 乘以指标权重的考核得分
+     */
+    private Double wSD;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

@@ -23,6 +23,10 @@
             <result property="wD" column="w_d" jdbcType="INTEGER"/>
             <result property="wU" column="w_u" jdbcType="INTEGER"/>
             <result property="wT" column="w_t" jdbcType="INTEGER"/>
+            <result property="totalScore" column="total_score" jdbcType="DOUBLE"/>
+            <result property="wST" column="w_s_t" jdbcType="FLOAT"/>
+            <result property="wSU" column="w_s_u" jdbcType="FLOAT"/>
+            <result property="wSD" column="w_s_d" jdbcType="FLOAT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -31,6 +35,8 @@
         a_s_d,defect_close_rate,name,
         types_section,project_type,w_p,
         timeliness_rate,i_s_t,a_s_t,
-        w_d,w_u,w_t
+        w_d,w_u,w_t,
+        total_score,w_s_t,w_s_u,
+        w_s_d
     </sql>
 </mapper>

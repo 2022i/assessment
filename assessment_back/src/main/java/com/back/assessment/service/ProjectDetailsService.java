@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 /**
 * @author dell
 * @description 针对表【project_details】的数据库操作Service
-* @createDate 2024-07-08 11:00:03
+* @createDate 2024-07-08 11:45:31
 */
 public interface ProjectDetailsService extends IService<ProjectDetails> {
-        ProjectDetails getProjectDetails(Integer projectId);
+ ProjectDetails getProjectDetails(Integer projectId);
 }
