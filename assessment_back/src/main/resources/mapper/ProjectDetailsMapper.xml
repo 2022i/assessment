@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.back.assessment.mapper.ProjectDetailsMapper">
+
+    <resultMap id="BaseResultMap" type="com.back.assessment.entity.ProjectDetails">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="usageRate" column="usage_rate" jdbcType="FLOAT"/>
+            <result property="iSU" column="i_s_u" jdbcType="FLOAT"/>
+            <result property="aSU" column="a_s_u" jdbcType="FLOAT"/>
+            <result property="defectRate" column="defect_rate" jdbcType="FLOAT"/>
+            <result property="iSD" column="i_s_d" jdbcType="FLOAT"/>
+            <result property="aSD" column="a_s_d" jdbcType="FLOAT"/>
+            <result property="defectCloseRate" column="defect_close_rate" jdbcType="FLOAT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="typesSection" column="types_section" jdbcType="VARCHAR"/>
+            <result property="projectType" column="project_type" jdbcType="VARCHAR"/>
+            <result property="wP" column="w_p" jdbcType="INTEGER"/>
+            <result property="timelinessRate" column="timeliness_rate" jdbcType="FLOAT"/>
+            <result property="iST" column="i_s_t" jdbcType="FLOAT"/>
+            <result property="aST" column="a_s_t" jdbcType="FLOAT"/>
+            <result property="wD" column="w_d" jdbcType="INTEGER"/>
+            <result property="wU" column="w_u" jdbcType="INTEGER"/>
+            <result property="wT" column="w_t" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,usage_rate,i_s_u,
+        a_s_u,defect_rate,i_s_d,
+        a_s_d,defect_close_rate,name,
+        types_section,project_type,w_p,
+        timeliness_rate,i_s_t,a_s_t,
+        w_d,w_u,w_t
+    </sql>
+</mapper>
