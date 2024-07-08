@@ -40,6 +40,7 @@ public class MailServiceImpl implements MailService {
             System.out.println(code);
             Context context = new Context();
             context.setVariable("code", code);
+            context.setVariable("subject", subject);
             String text = templateEngine.process("email.html", context);
 
             message.setText(text, true);
@@ -53,7 +54,12 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void mailSend(String to) {
-        sendMail("2383195232@qq.com",to,"项目考核系统注册验证码");
+    public void mailSendForRegister(String to) {
+        sendMail("2383195232@qq.com",to,"项目考核系统：用户注册验证码");
+    }
+
+    @Override
+    public void mailSendForForgetPassword(String to) {
+        sendMail("2383195232@qq.com", to, "项目考核系统：忘记密码验证码");
     }
 }

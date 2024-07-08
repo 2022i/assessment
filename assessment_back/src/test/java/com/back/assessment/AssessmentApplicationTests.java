@@ -17,7 +17,7 @@ class AssessmentApplicationTests {
 
 	@Test
 	void testMail() {
-		mailServiceImpl.mailSend("2022213356@mail.hfut.edu.cn");
+		mailServiceImpl.mailSendForRegister("2022213356@mail.hfut.edu.cn");
 	}
 
 	@Test

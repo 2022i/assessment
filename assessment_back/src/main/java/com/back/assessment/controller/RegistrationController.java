@@ -18,13 +18,13 @@ public class RegistrationController {
     private UserServiceImpl userService;
 
     @Description("根据邮箱发送验证码")
-    @PostMapping("/mailMail")
+    @PostMapping("/mailForRegister")
     public Response<String> mailMail(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String username = loginRequest.getUsername();
         if (userService.selectUserByEmail(email)==null) {
             if(userService.selectUserByUsername(username)==null){
-               userService.mailMail(email);
+               userService.mailForRegister(email);
                return Response.successMail(email);
             }else{
                 return Response.alreadyExistsUsername(username);

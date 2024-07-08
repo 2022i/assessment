@@ -27,8 +27,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User selectUserByEmail(String email) {
-
-        return baseMapper.selectById(email);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email", email);
+        System.out.println(email);
+        System.out.println(baseMapper.selectOne(queryWrapper));
+        return baseMapper.selectOne(queryWrapper);
     }
 
     @Override
@@ -59,8 +62,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public void mailMail(String email){
-        mailServiceImpl.mailSend(email);
+    public void mailForRegister(String email){
+        mailServiceImpl.mailSendForRegister(email);
+    }
+
+    @Override
+    public void mailSendForForgetPassword(String email){
+        mailServiceImpl.mailSendForForgetPassword(email);
     }
 
     @Override
@@ -78,7 +86,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return false;
     }
 
+    @Override
+    public boolean codeCheckForForgetPassword(String email, String code){
+        return redisCacheServiceImpl.get(email).equals(code);
+    }
 
+    @Override
+    public void makePasswordNull(String email){
+        User user = baseMapper.selectById(email);
+        user.setPassword(null);
+        baseMapper.updateById(user);
+    }
+
+    @Override
+    public void changePassword(String email, String password){
+        User user = baseMapper.selectById(email);
+        PasswordEncoder passwordEncoder = encodingSelectionService.getEncoder();
+        String passwordEncoded = passwordEncoder.encode(password);
+        user.setPassword(passwordEncoded);
+        baseMapper.updateById(user);
+    }
 
 }
 

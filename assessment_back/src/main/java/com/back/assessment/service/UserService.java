@@ -2,7 +2,6 @@ package com.back.assessment.service;
 
 import com.back.assessment.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Param;
 
 /**
 * @author 23831
@@ -14,7 +13,10 @@ public interface UserService extends IService<User> {
     User selectUserByUsername(String username);
     boolean loginByEmail(String username, String password);
     boolean loginByUsername(String username,  String password);
-    void mailMail(String email);
+    void mailForRegister(String email);
+    void mailSendForForgetPassword(String email);
     boolean registerUser(String username, String email,String password,String code);
-
+    boolean codeCheckForForgetPassword(String email, String code);
+    void makePasswordNull(String email);
+    void changePassword(String email, String password);
 }
