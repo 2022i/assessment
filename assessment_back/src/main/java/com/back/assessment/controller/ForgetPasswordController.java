@@ -1,6 +1,7 @@
 package com.back.assessment.controller;
 
 import com.back.assessment.dto.Response;
+import com.back.assessment.service.impl.RedisCacheServiceImpl;
 import com.back.assessment.service.impl.UserServiceImpl;
 import jakarta.annotation.Resource;
 import jdk.jfr.Description;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class ForgetPasswordController {
     @Resource
     private UserServiceImpl userService;
+
+    @Resource
+    private RedisCacheServiceImpl redisCacheServiceImpl;
 
     @Description("根据邮箱发送验证码")
     @PostMapping("/mailForForgetPassword")
@@ -28,12 +32,16 @@ public class ForgetPasswordController {
     @Description("重置密码")
     @PostMapping("/resetPassword")
     public Response<String> resetPassword(@RequestParam String email, @RequestParam String code, @RequestParam String password) {
-        if(userService.codeCheckForForgetPassword(email,code)){
-            userService.makePasswordNull(email);
-            userService.changePassword(email,password);
-            return Response.success();
-        }else{
-            return Response.errorCode();
+        if (redisCacheServiceImpl.get(email) != null) {
+            if (userService.codeCheckForForgetPassword(email, code)) {
+                userService.makePasswordNull(email);
+                userService.changePassword(email, password);
+                return Response.success();
+            } else {
+                return Response.errorCode();
+            }
+        }else {
+            return Response.codeExpired();
         }
     }
 }

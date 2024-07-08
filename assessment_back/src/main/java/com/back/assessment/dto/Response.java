@@ -37,14 +37,6 @@ public class Response<T>{
         return result;
     }
 
-    public static <T> Response<T> successMakePasswordNull() {
-        Response<T> result = new Response<>();
-        result.setCode(200);
-        result.setMsg("成功将该用户密码清空");
-        return result;
-    }
-
-
     public static <T> Response<T> notFoundUser(T data) {
         Response<T> result = new Response<>();
         result.setCode(404);
@@ -130,6 +122,13 @@ public class Response<T>{
         Project result = new Project();
         result.setId(id);
         result.setName("没有找到项目");
+        return result;
+    }
+
+    public static <T> Response<T> codeExpired() {
+        Response<T> result = new Response<>();
+        result.setCode(404);
+        result.setMsg("验证码已过期");
         return result;
     }
 }

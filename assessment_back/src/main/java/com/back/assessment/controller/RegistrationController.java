@@ -2,6 +2,7 @@ package com.back.assessment.controller;
 
 import com.back.assessment.dto.LoginRequest;
 import com.back.assessment.dto.Response;
+import com.back.assessment.service.impl.RedisCacheServiceImpl;
 import com.back.assessment.service.impl.UserServiceImpl;
 import jakarta.annotation.Resource;
 import jdk.jfr.Description;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
     @Resource
     private UserServiceImpl userService;
+
+    @Resource
+    private RedisCacheServiceImpl redisCacheServiceImpl;
 
     @Description("根据邮箱发送验证码")
     @PostMapping("/mailForRegister")
@@ -43,14 +47,15 @@ public class RegistrationController {
         String password = loginRequest.getPassword();
         String email = loginRequest.getEmail();
         String code = loginRequest.getCode();
-        if(userService.registerUser(username,email,password,code)){
-            return Response.successRegister(username);
-        }
-        else {
-            return Response.errorCode();
+        if(redisCacheServiceImpl.get(email)!=null){
+            if(userService.registerUser(username,email,password,code)){
+                return Response.successRegister(username);
+            }
+            else {
+                return Response.errorCode();
+            }
+        }else {
+            return Response.codeExpired();
         }
     }
-
-
-
 }
