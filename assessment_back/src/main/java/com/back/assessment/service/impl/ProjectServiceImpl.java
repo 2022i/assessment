@@ -55,9 +55,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 //    }
 
     @Override
-    public Page<Project> getProjectByPage(
-                                          @RequestParam("page") int page,
-                                          @RequestParam("size") int size) {
+    public Page<Project> getProjectByPage(@RequestParam("page") int page, @RequestParam("size") int size) {
         QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
         Page<Project> projectPage = new Page<>(page , size); // 使用 size 作为页面大小
 //        queryWrapper.like("name", "%" + name + "%");
@@ -79,6 +77,11 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
 //        // 执行分页查询
 //        projectPage = projectMapper.selectPage(projectPage, queryWrapper);
         return totalPages;
+    }
+
+    @Override
+    public List<Project> getAllProjects() {
+        return baseMapper.selectList(null);
     }
 }
 

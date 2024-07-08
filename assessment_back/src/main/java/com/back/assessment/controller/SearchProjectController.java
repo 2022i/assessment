@@ -63,7 +63,9 @@ public class SearchProjectController {
         return (int) Math.ceil((double) totalRecords / size);
     }
 
-
-
-
+    @Description("获取所有项目")
+    @GetMapping("/getAllProjects")
+    public List<Project> getAllProjects() {
+        return projectService.getAllProjects();
+    }
 }

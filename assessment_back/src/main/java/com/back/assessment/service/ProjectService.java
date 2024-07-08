@@ -18,6 +18,6 @@ public interface ProjectService extends IService<Project> {
         List<Project> getProjectsByName(String name);
         void changeProjectWeight(int projectId, int weightId);
         Page<Project> getProjectByPage(int page, int size);
-
         int getPageByID(@RequestParam("size") int size);
+        List<Project> getAllProjects();
 }
