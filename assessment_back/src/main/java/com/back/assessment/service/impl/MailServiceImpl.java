@@ -41,6 +41,12 @@ public class MailServiceImpl implements MailService {
             Context context = new Context();
             context.setVariable("code", code);
             context.setVariable("subject", subject);
+            if(subject.equals("项目考核系统：用户注册验证码")){
+                context.setVariable("src","https://img.zcool.cn/community/019b615de70a5ba8012138534fa69f.jpg??imageMogr2/format/webp");
+            }else{
+                context.setVariable("src","https://img.zcool.cn/community/013063604068a611013f3745c7f003.png@3000w_1l_2o_100sh.png");
+            }
+
             String text = templateEngine.process("email.html", context);
 
             message.setText(text, true);
