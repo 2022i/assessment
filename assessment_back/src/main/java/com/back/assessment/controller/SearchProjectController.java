@@ -65,6 +65,7 @@ public class SearchProjectController {
 
     @Description("获取所有项目")
     @GetMapping("/getAllProjects")
+    @CrossOrigin(origins = "http://localhost:8080")
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
     }

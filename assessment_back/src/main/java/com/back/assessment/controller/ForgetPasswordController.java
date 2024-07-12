@@ -18,8 +18,8 @@ public class ForgetPasswordController {
     private RedisCacheServiceImpl redisCacheServiceImpl;
 
     @Description("根据邮箱发送验证码")
-    @PostMapping("/mailForForgetPassword")
-    public Response<String> recoverPassword(@RequestParam String email) {
+    @GetMapping("/mailForForgetPassword")
+    public Response<String> recoverPassword(@RequestParam("email") String email) {
         System.out.println(email);
         if(userService.selectUserByEmail(email)!=null){
             userService.mailSendForForgetPassword(email);
@@ -30,7 +30,7 @@ public class ForgetPasswordController {
     }
 
     @Description("重置密码")
-    @PostMapping("/resetPassword")
+    @GetMapping("/resetPassword")
     public Response<String> resetPassword(@RequestParam String email, @RequestParam String code, @RequestParam String password) {
         if (redisCacheServiceImpl.get(email) != null) {
             if (userService.codeCheckForForgetPassword(email, code)) {
