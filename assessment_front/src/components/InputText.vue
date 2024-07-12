@@ -1,31 +1,34 @@
 <template>
   <div id="app">
-    <h1 class="MyName">Project Assessment System</h1>
-    <div class="InputText">
-      <router-link to="/register" class="register-link">注册账户</router-link>
-      <input
-        type="text"
-        maxlength="15"
-        v-model="inputValue"
-        placeholder="输入你的账号"
-      />
-      <input
-        type="password"
-        maxlength="20"
-        v-model="password"
-        placeholder="输入你的密码"
-      />
-      <input
-        type="text"
-        maxlength="6"
-        v-model="verificationCode"
-        placeholder="输入验证码"
-      />
-      <img
-        src="../assets/send.png"
-        class="submit-btn"
-        @click="submit"
-      />
+    <div class="background-container">
+      <div class="content-container">
+        <div style="margin-top: 30px; color: white;"></div>
+        <h1 class="MyName">项目考核系统</h1>
+        <div style="margin-top: 40px; color: white;"></div>
+        <div class="InputText">
+          <input
+            type="text"
+            maxlength="15"
+            v-model="inputValue"
+            placeholder="输入你的账号"
+            style="border-radius: 2px; background-color: transparent; box-shadow: 0 0 5px #3f4548;"
+          />
+          <input
+            type="password"
+            maxlength="20"
+            v-model="password"
+            placeholder="输入你的密码"
+            style="border-radius: 2px; background-color: transparent; box-shadow: 0 0 5px #3f4548;"
+          />
+          <div class="links-container">  <!-- 注册和忘记密码的容器 -->
+            <router-link to="/register" class="register-link">立即注册</router-link>
+            <router-link to="/resetpassword" class="resetpassword-link">忘记密码</router-link>
+          </div>
+          <div style="margin-top: 50px; color: white;"></div>
+          <button class="new-submit-btn" @click="submit">登录</button>  <!-- 登录按钮 -->
+          <div style="margin-top: 20px; color: white;"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,111 +42,150 @@
   color: #2c3e50;
 }
 
-body {
-  background: rgb(244, 189, 255);
-  background: linear-gradient(
-    90deg,
-    rgb(253, 253, 255) 0%,
-    #e9e9ec 50%,
-    rgb(219, 222, 222) 100%
-  );
-}
-.register-link {
-  color: black; /* 字体颜色设置为黑色 */
-  margin: 10px; /* 外边距设置 */
-}
-
-// 设置全局滚动条
-body::-webkit-scrollbar {
-  width: 5px;
-  background-color: #f5f5f5;
-}
-
-body::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #1d8054;
-}
-.InputText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.background-container {
+  background-image: url('../assets/score-bg.jpg'); /* 背景图的路径 */
+  background-size: cover; /* 背景图填充整个容器 */
+  background-position: center center; /* 背景图居中对齐 */
+  height: 100vh; /* 全屏高度 */
   display: flex;
-  flex-direction: column; /* 更改布局为列方向 */
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  background-color: transparent;
-  width: 300px;
-  margin: 0 auto;
-  z-index: 999;
 }
 
-input[type="text"], input[type="password"] { /* 添加对 input[type="password"] 的样式 */
-  width: 100%; /* 设置宽度为容器的 100% */
-  margin-bottom: 10px; /* 设置下外边距 */
+.content-container {
+  background-color: rgba(255, 255, 255, 0.5); /* 白色半透明背景 */
+  padding: 20px; /* 内边距 */
+  border-radius: 10px; /* 圆角 */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  max-width: 400px; /* 最大宽度 */
+  width: 100%; /* 宽度100% */
+}
+
+.MyName {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.links-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.register-link,.resetpassword-link {
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.InputText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"], input[type="password"] { 
+  width: 100%; 
+  margin-bottom: 10px; 
   height: 40px;
   padding: 0 10px;
-  background-color: rgba(178, 173, 173, 0.7);
-  border: 1px solid transparent;
-  border-radius: 20px;
-  box-shadow: 0 0 10px #3f4548;
+  background-color: transparent;
+  border: 1px solid gray;  
+  border-radius: 2px;
+  box-shadow: 0 0 5px #3f4548;
   transition: all 0.3s ease-in-out;
 }
 
-input[type="text"]:hover, input[type="password"]:hover { /* 添加对 input[type="password"]:hover 的样式 */
+input[type="text"]:hover, input[type="password"]:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(24, 144, 255, 0.8);
 }
 
-.submit-btn {
+.new-submit-btn {  
   height: 40px;
-  padding: 2px 0px 0px 10px;
-  background-color: transparent;
+  padding: 0;
+  background-color: white;  
   border: none;
   cursor: pointer;
+  border-radius: 20px;  
   transform: scale(1);
   transition: all 0.3s ease-in-out;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 200px;  
+  color: black;
+  font-weight: bold;
 }
 
-.submit-btn:hover {
+.new-submit-btn:hover {
   transform: scale(1.2);
 }
 </style>
 
 <script>
+import axios from 'axios'; // 引入 axios
+
 export default {
   name: 'InputText',
   data() {
     return {
       inputValue: '',
-      password: '',
-      verificationCode: ''
+      password: ''
     };
   },
   methods: {
-    submit() {
+    async submit() {
       console.log('submit method triggered');
       console.log('Username:', this.inputValue, 'Password:', this.password);
 
-      if (this.inputValue === 'admin' && this.password === '1234') {
-        this.inputValue = '';
-        this.password = '';
-        this.verificationCode = '';
-
-        this.$message({
-          message: '登录成功！',
-          type: 'success',
-          duration: 2000
+      try {
+        const response = await axios.post('http://localhost:8081/server/login/loginByUsername', {
+          username: this.inputValue,
+          password: this.password
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
 
-        // 使用路由跳转到 dashboard 页面
-        this.$router.push({ name: 'Dashboard' });
-      } else {
+        if (response.data.code === 200) {
+          this.inputValue = '';
+          this.password = '';
+
+          // 保存 token 到本地存储
+          localStorage.setItem('token', response.data.data);
+
+          this.$message({
+            message: '登录成功！',
+            type: 'uccess',
+            duration: 2000
+          });
+
+          // 使用路由跳转到 dashboard 页面
+          this.$router.push({ name: 'Dashboard' });
+        } else if (response.data.code === 401) {
+          this.$message({
+            message: '密码错误！',
+            type: 'error',
+            duration: 2000
+          });
+        } else if (response.data.code === 404) {
+          this.$message({
+            message: '不存在该用户！',
+            type: 'error',
+            duration: 2000
+          });
+        } else {
+          this.$message({
+            message: '登录失败，请重试！',
+            type: 'error',
+            duration: 2000
+          });
+        }
+      } catch (error) {
+        console.error('登录失败:', error);
         this.$message({
-          message: '账号或密码错误！',
+          message: '登录失败，请重试！',
           type: 'error',
           duration: 2000
         });
@@ -152,4 +194,3 @@ export default {
   }
 };
 </script>
-

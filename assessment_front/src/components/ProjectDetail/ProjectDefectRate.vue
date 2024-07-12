@@ -1,38 +1,42 @@
 <template>
   <div class="project-summary-container">
     <el-card class="project-summary-card">
+      <div style="margin-top: -70px; color: white;"></div>
       <div slot="header" class="clearfix">
+        <div style="margin-top: -60px;"></div>
         <h2>项目缺陷率报告</h2>
       </div>
       <div class="chart-section">
-        <!-- 指标得分 -->
+        <!-- 考核得分 -->
         <div class="chart-item">
-          <h3>指标得分：</h3>
+          <div style="margin-top: -60px;"></div>
+          <h3>考核得分：</h3>
           <div id="bar-chart" class="chart"></div>
         </div>
         <!-- 指标占比 -->
         <div class="chart-item">
+          <div style="margin-top: -60px;"></div>
           <h3>指标占比：</h3>
           <div id="pie-chart" class="chart"></div>
         </div>
-        <!-- 任务和缺陷统计 -->
         <div class="chart-item">
-          <h3>任务和缺陷统计：</h3>
+          <div style="margin-top: -60px;"></div>
+          <h3>缺陷统计：</h3>
           <table class="time-table">
             <thead>
               <tr>
-                <th>任务数目</th>
-                <th>缺陷数目</th>
-                <th>缺陷修复数</th>
+                <th>缺陷率</th>
+                <th>指标得分</th>
                 <th>缺陷关闭率</th>
+                <th>考核得分</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{ taskCount }}</td>
-                <td>{{ defectCount }}</td>
-                <td>{{ fixedDefectCount }}</td>
-                <td>{{ defectCloseRate }}%</td>
+                <td>{{  defectRate     }}</td>
+                <td>{{  indicatorScore }}</td>
+                <td>{{  defectCloseRate }}</td>
+                <td>{{  assessmentScore}}</td>
               </tr>
             </tbody>
           </table>
@@ -42,9 +46,58 @@
   </div>
 </template>
 
+<style scoped>
+.project-summary-container {
+  padding: 20px;
+}
+.project-summary-card {
+  border-radius: 10px; 
+}
+.project-summary-card.el-card__header {
+  padding: 10px 20px;
+  border-bottom: none; 
+}
+.chart-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; 
+}
+.chart-item {
+  width: calc(33.33% - 20px); 
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px; 
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+.chart-item h3 {
+  margin-bottom: 10px;
+}
+.chart {
+  width: 100%;
+  height: 300px;
+}
+.time-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px; 
+  overflow: hidden; 
+  margin-bottom: 20px;
+  font-size: 12px; 
+  line-height: 125px;  /* 减小行高 */
+}
+.time-table th,
+.time-table td {
+  border: 1px solid #ccc;
+  padding: 4px; 
+  text-align: center; 
+}
+</style>
+
+
 <script>
 import { Card } from 'element-ui';
 import * as echarts from 'echarts';
+import instance from '@/api';
 
 export default {
   name: 'ProjectDefectRate',
@@ -53,24 +106,51 @@ export default {
   },
   data() {
     return {
-      /* 假数据，未来需要通过后端接口获取 */
-      score: 80, // 指标得分
-      ratio: 30, // 指标比例
-      
-      /* 任务和缺陷统计假数据 */
-      taskCount: 120, // 任务数目 
-      defectCount: 45, // 缺陷数目
-      fixedDefectCount: 40, // 缺陷修复数
-      defectCloseRate: ((40 / 45) * 100).toFixed(2) // 缺陷关闭率（取2位小数）
+      score: 0, //考核得分
+      ratio: 0, // 指标比例
+      //用于可视化
+      defectRate: 0, // 缺陷率
+      indicatorScore:  0,// 缺陷率指标得分
+      defectCloseRate: 0,// 缺陷关闭率
+      indicatorScoreC: 0,//缺陷关闭率指标得分
+      assessmentScore: 0,//考核得分
+  
     };
   },
+  computed: {
+    projectId() {
+      return this.$store.getters['projectId'];
+    },
+  },
   mounted() {
-    this.$nextTick(() => {
-      this.drawBarChart();
-      this.drawPieChart();
-    });
+    this.fetchDefectData();
   },
   methods: {
+    fetchDefectData() {
+      instance.get('http://127.0.0.1:8081/server/defect/getDefectById', {
+        params: {
+          id: this.projectId
+        }
+      }).then(response => {
+        const data = response.data;
+        this.indicatorScore = data.indicatorScore 
+        this.defectCloseRate = data.defectCloseRate
+        this.indicatorScoreC = data.indicatorScoreC
+        this.assessmentScore = data.assessmentScore
+        this.score = data.assessmentScore
+        const weightId = data.weightId;
+        const defect = this.$store.state.data.find(item => item.id === weightId)?.defect;
+        // 计算 ratio
+        this.ratio = defect ? defect * 100 : 0;
+
+        this.$nextTick(() => {
+          this.drawBarChart();
+          this.drawPieChart();
+        });
+      }).catch(error => {
+        console.error('Error fetching defect data:', error);
+      });
+    },
     drawBarChart() {
       const chartDom = document.getElementById('bar-chart');
       const myChart = echarts.init(chartDom);
@@ -150,48 +230,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.project-summary-container {
-  padding: 20px;
-}
-.project-summary-card {
-  border-radius: 10px; /* 添加圆角 */
-}
-.project-summary-card .el-card__header {
-  padding: 10px 20px;
-  border-bottom: none; /* 移除底部边框 */
-}
-.chart-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px; /* 增加间距 */
-}
-.chart-item {
-  width: calc(33.33% - 20px); /* 使宽度等分并减去间距 */
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px; /* 添加圆角 */
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-.chart-item h3 {
-  margin-bottom: 10px;
-}
-.chart {
-  width: 100%;
-  height: 300px;
-}
-.time-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 10px; /* 添加圆角 */
-  overflow: hidden; /* 圆角修剪 */
-  margin-bottom: 20px;
-  font-size: 12px; /* 调整字体大小 */
-}
-.time-table th,
-.time-table td {
-  border: 1px solid #ccc;
-  padding: 4px; /* 调整单元格内边距 */
-  text-align: center; /* 居中对齐表头和单元格内容 */
-}
-</style>

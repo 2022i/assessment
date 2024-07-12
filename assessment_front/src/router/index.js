@@ -1,3 +1,4 @@
+
 import Vue from 'vue';
 import Router from 'vue-router';
 import InputText from '@/components/InputText.vue';
@@ -8,6 +9,8 @@ import ProjectTimelines from '@/components/ProjectDetail/ProjectTimelines.vue';
 import ProjectDefectRate from '@/components/ProjectDetail/ProjectDefectRate.vue';
 import ProjectCostUsage from '@/components/ProjectDetail/ProjectCostUsage.vue';
 import Register from '@/components/Register.vue'
+import ResetPassword from '@/components/ResetPassword.vue';
+
 
 
 Vue.use(Router);
@@ -30,14 +33,16 @@ export default new Router({
       component: Register
     },
     {
+      path: '/resetpassword',
+      name: 'ResetPassword',
+      component: ResetPassword // 确保这与导入的组件名称匹配
+    },
+
+    {
       path: '/project-detail',
       name: 'ProjectDetail',
       component: ProjectDetail,
       children: [
-        {
-          path: '',
-          redirect: 'score' // 默认重定向到 score
-        },
         {
           path: 'score',
           name: 'ProjectScore',  
