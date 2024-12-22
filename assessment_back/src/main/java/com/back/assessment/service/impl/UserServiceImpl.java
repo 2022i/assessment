@@ -1,5 +1,6 @@
 package com.back.assessment.service.impl;
 
+import com.back.assessment.service.AbstractMailSend;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.back.assessment.entity.User;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService{
     @Resource
-    private MailServiceImpl mailServiceImpl;
+    private MailSendForRegister mailSendForRegister;
+    @Resource
+    private MailSendForResetPassword mailSendForResetPassword;
 
     @Resource
     private RedisCacheServiceImpl redisCacheServiceImpl;
@@ -63,12 +66,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public void mailForRegister(String email){
-        mailServiceImpl.mailSendForRegister(email);
+        mailSendForRegister.sendMail(email);
     }
 
     @Override
     public void mailSendForForgetPassword(String email){
-        mailServiceImpl.mailSendForForgetPassword(email);
+        mailSendForResetPassword.sendMail(email);
     }
 
     @Override
@@ -106,7 +109,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setPassword(passwordEncoded);
         baseMapper.updateById(user);
     }
-
 }
 
 

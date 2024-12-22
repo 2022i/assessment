@@ -16,8 +16,8 @@ public class ProjectTimeController {
 
     @Description("根据项目ID给出对应项目及时率表的所有信息")
     @GetMapping("/getProjectTimeById")
-    public ProjectTime getProjectTimeById(@RequestParam("id") int id) {
-        return projectTimeService.getProjectTimeById(id);
+    public ProjectTime getProjectTimeById(@RequestParam("projectId") int projectId) {
+        return projectTimeService.getProjectTimeById(projectId);
     }
 
 }

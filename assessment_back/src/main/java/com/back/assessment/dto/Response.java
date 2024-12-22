@@ -15,10 +15,17 @@ public class Response<T>{
     private String msg;
     private T data;
 
-    public static <T> Response<T> success() {
+    public static <T> Response<T> successResetPassword() {
         Response<T> result = new Response<>();
         result.setCode(200);
-        result.setMsg("操作成功");
+        result.setMsg("修改密码成功");
+        return result;
+    }
+
+    public static <T> Response<T> successChangeWeight() {
+        Response<T> result = new Response<>();
+        result.setCode(200);
+        result.setMsg("修改权重成功");
         return result;
     }
 
@@ -98,7 +105,7 @@ public class Response<T>{
         return result;
     }
 
-    public static <T> Response<T> error(HttpStatus status) {
+    public static <T> Response<T> Forbidden(HttpStatus status) {
         Response<T> result = new Response<>();
         result.setCode(status.getCode());
         result.setMsg(status.getMsg());

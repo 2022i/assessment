@@ -56,8 +56,8 @@ public class SecurityConfig {
 
         // ExceptionTranslationFilter 异常处理器
         http.exceptionHandling(config -> config
-                .authenticationEntryPoint((request, response, exception) -> ServletUtil.print(response, Response.error(HttpStatus.FORBIDDEN)))
-                .accessDeniedHandler((request, response, exception) -> ServletUtil.print(response, Response.error(HttpStatus.FORBIDDEN)))
+                .authenticationEntryPoint((request, response, exception) -> ServletUtil.print(response, Response.Forbidden(HttpStatus.FORBIDDEN)))
+                .accessDeniedHandler((request, response, exception) -> ServletUtil.print(response, Response.Forbidden(HttpStatus.FORBIDDEN)))
         );
 
         // AuthorizationFilter 授权，除匿名接口外都需要认证

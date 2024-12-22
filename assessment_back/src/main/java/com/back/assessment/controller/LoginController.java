@@ -28,16 +28,16 @@ public class LoginController {
     public Response<String> loginByUsername(@RequestBody LoginByUsernameRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
-        if (userService.selectUserByUsername(username)!=null) {
-            if (userService.loginByUsername(username, password)) {
-                String token = SecureUtil.md5(loginRequest.toString());
-                redisCacheService.set(token,loginRequest.getUsername());
-                return Response.successLogin(token);
-            } else {
-                return Response.errorPassword();
-            }
+        if(userService.selectUserByUsername(username)==null){
+            return Response.notFoundUser(username);
         }
-        return Response.notFoundUser(username);
+        else if (userService.loginByUsername(username, password)) {
+            String token = SecureUtil.md5(loginRequest.toString());
+            redisCacheService.set(token,loginRequest.getUsername());
+            return Response.successLogin(token);
+        } else {
+            return Response.errorPassword();
+        }
     }
 
 //    @GetMapping("/loginByUsername")
@@ -59,13 +59,14 @@ public class LoginController {
     public Response<String> loginByEmail(@RequestBody LoginByEmailRequest loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-        if (userService.selectUserByEmail(email)!=null) {
-            if (userService.loginByEmail(email, password)) {
-                return Response.successLogin(email);
-            } else {
-                return Response.errorPassword();
-            }
+        if (userService.selectUserByEmail(email) == null) {
+            return Response.notFoundUser(email);
+        } else if (userService.loginByEmail(email, password)) {
+            String token = SecureUtil.md5(loginRequest.toString());
+            redisCacheService.set(token, email);
+            return Response.successLogin(token);
+        } else {
+            return Response.errorPassword();
         }
-        return Response.notFoundUser(email);
     }
 }

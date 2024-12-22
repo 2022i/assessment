@@ -17,7 +17,7 @@ public class UtilizationController {
 
     @Description("根据项目ID给出对应项目人员成本使用率表的所有信息")
     @GetMapping("/getUtilization")
-    public ProjectPerson getProjectPersonById(@RequestParam("id") int id) {
-        return projectPersonService.getProjectPersonById(id);
+    public ProjectPerson getProjectPersonById(@RequestParam("projectId") int projectId) {
+        return projectPersonService.getProjectPersonById(projectId);
     }
 }

@@ -17,7 +17,7 @@ public class ChangeWeightController {
     @PostMapping("/changeWeight")
     public Response<String> changeWeight(@RequestParam int projectId, @RequestParam int weightId) {
         changeWeightService.changeWeight(projectId, weightId);
-        return Response.success();
+        return Response.successChangeWeight();
     }
 
 }

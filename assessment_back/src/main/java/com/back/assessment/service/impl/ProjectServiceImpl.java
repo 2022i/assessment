@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.back.assessment.entity.Project;
 import com.back.assessment.service.ProjectService;
 import com.back.assessment.mapper.ProjectMapper;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ import java.util.List;
 @Service
 public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> implements ProjectService{
 
-    @Autowired
+    @Resource
     private ProjectMapper projectMapper;
 
     @Override
@@ -26,15 +27,10 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         return baseMapper.selectById(id);
     }
 
-//    @Override
-//    public List<Project> fuzzy_search(String name) {
-//        return baseMapper.fuzzy_search(name);
-//    }
-
-   @Override
-   public List<Project> getProjectsByName(String name) {
-       return List.of();
-   }
+    @Override
+    public List<Project> getProjectsByName(String name) {
+        return List.of();
+    }
 
    @Override
     public void changeProjectWeight(int projectId, int weightId) {
@@ -45,20 +41,10 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         baseMapper.updateById(project);
     }
 
-//    @Override
-//    public Page<Project> getProjectByname(String name, int page, int size) {
-//        //分页查询，返回分页对象
-//        Page<Project> pageInfo = new Page<>(page, size);
-//        //查询条件
-//        return baseMapper.selectPage(pageInfo, null);
-//        return 0;
-//    }
-
     @Override
     public Page<Project> getProjectByPage(@RequestParam("page") int page, @RequestParam("size") int size) {
         QueryWrapper<Project> queryWrapper = new QueryWrapper<>();
         Page<Project> projectPage = new Page<>(page , size); // 使用 size 作为页面大小
-//        queryWrapper.like("name", "%" + name + "%");
         projectPage = projectMapper.selectPage(projectPage, queryWrapper);
         return projectPage;
     }
@@ -71,11 +57,6 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
         int totalRecords = Math.toIntExact(projectMapper.selectCount(queryWrapper));
         // 计算总页数
         int totalPages = (int) Math.ceil((double) totalRecords / size);
-
-//        // 创建 Page 对象，并设置总页数
-//        Page<Project> projectPage = new Page<>(page - 1, size, totalRecords);
-//        // 执行分页查询
-//        projectPage = projectMapper.selectPage(projectPage, queryWrapper);
         return totalPages;
     }
 

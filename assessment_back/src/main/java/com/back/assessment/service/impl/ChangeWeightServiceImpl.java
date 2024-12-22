@@ -26,5 +26,4 @@ public class ChangeWeightServiceImpl implements ChangeWeightService {
         defectService.changeWeightId(id,weightId);
         utilizationService.changeWeightId(id,weightId);
     }
-
 }

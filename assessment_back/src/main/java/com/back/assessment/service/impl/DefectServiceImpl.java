@@ -18,7 +18,7 @@ public class DefectServiceImpl extends ServiceImpl<DefectMapper, Defect>
     public void changeWeightId(int projectId,int weightId) {
         //将指定id号的Defect实体的weightId修改为weightId
         //查询出指定id号的Defect实体
-        Defect defect = this.getById(projectId);
+        Defect defect = getDefectById(projectId);
         //修改weightId
         defect.setWeightId(weightId);
         //更新
@@ -26,8 +26,8 @@ public class DefectServiceImpl extends ServiceImpl<DefectMapper, Defect>
     }
 
     @Override
-    public Defect getDefectById(int id) {
-        return baseMapper.selectById(id);
+    public Defect getDefectById(int ProjectId) {
+        return baseMapper.selectById(ProjectId);
     }
 
 }

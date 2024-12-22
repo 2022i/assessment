@@ -12,7 +12,7 @@ public class ProjectDetailsController {
     @Resource
     private ProjectDetailsService projectDetailsService;
     @GetMapping("/getProjectDetails")
-    public ProjectDetails getProjectDetails(@RequestParam("id") int projectId) {
+    public ProjectDetails getProjectDetails(@RequestParam int projectId) {
         return projectDetailsService.getProjectDetails(projectId);
     }
 }

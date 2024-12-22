@@ -15,8 +15,7 @@ public class DefectController {
 
     @Description("根据项目ID给出对应项目缺陷表的所有信息")
     @GetMapping("/getDefectById")
-    public Defect getDefectById(@RequestParam int id){
-        return   defectService.getDefectById(id);
+    public Defect getDefectById(@RequestParam int projectId){
+        return   defectService.getDefectById(projectId);
     }
-
 }
