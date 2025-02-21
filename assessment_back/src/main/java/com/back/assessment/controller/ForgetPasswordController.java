@@ -21,7 +21,6 @@ public class ForgetPasswordController {
     @Description("根据邮箱发送验证码")
     @GetMapping("/mailForForgetPassword")
     public Response<String> sendEmail(@RequestParam("email") String email) {
-//        System.out.println(email);
         if(userService.selectUserByEmail(email)!=null){
             userService.mailSendForForgetPassword(email);
             return Response.successMail(email);
@@ -29,20 +28,6 @@ public class ForgetPasswordController {
             return Response.notFoundUser(email);
         }
     }
-
-//    @Description("重置密码")
-//    @GetMapping("/resetPassword")
-//    public Response<String> resetPassword(@RequestParam String email, @RequestParam String code, @RequestParam String password) {
-//        if (redisCacheServiceImpl.get(email) == null) return Response.codeExpired();
-//
-//        else if (userService.codeCheckForForgetPassword(email, code)) {
-////                userService.makePasswordNull(email);
-//            userService.changePassword(email, password);
-//            return Response.successResetPassword();
-//        } else {
-//            return Response.errorCode();
-//        }
-//    }
 
     @Description("重置密码")
     @GetMapping("/resetPassword")
@@ -52,7 +37,6 @@ public class ForgetPasswordController {
         String password = registrationRequest.getPassword();
         if (redisCacheServiceImpl.get(email) == null) return Response.codeExpired();
         else if (userService.codeCheckForForgetPassword(email, code)) {
-//                userService.makePasswordNull(email);
             userService.changePassword(email, password);
             return Response.successResetPassword();
         } else {

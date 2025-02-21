@@ -1,5 +1,6 @@
 package com.back.assessment.service;
 
+import com.back.assessment.dto.RegistrationRequest;
 import com.back.assessment.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,8 +16,7 @@ public interface UserService extends IService<User> {
     boolean loginByUsername(String username,  String password);
     void mailForRegister(String email);
     void mailSendForForgetPassword(String email);
-    boolean registerUser(String username, String email,String password,String code);
+    boolean registerUser(RegistrationRequest registrationRequest);
     boolean codeCheckForForgetPassword(String email, String code);
-    void makePasswordNull(String email);
     void changePassword(String email, String password);
 }

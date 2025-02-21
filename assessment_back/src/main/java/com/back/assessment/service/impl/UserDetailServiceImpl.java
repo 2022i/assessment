@@ -2,6 +2,7 @@ package com.back.assessment.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.back.assessment.entity.User;
+import com.back.assessment.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,12 +17,12 @@ import java.util.List;
 /**
  * UserDetailsService 实现类，供 AuthenticationManager 使用
  *
- * @author lzz
+ * @author Damn
  */
 @Service("userDetailsService")
 public class UserDetailServiceImpl implements UserDetailsService {
     @Resource
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -60,42 +61,42 @@ public class UserDetailServiceImpl implements UserDetailsService {
             public String getUsername() {
                 return user.getUsername();
             }
-//
-//            /**
-//             * 账号是否未过期
-//             * @return true-未过期，false-过期
-//             */
+
+            /**
+             * 账号是否未过期
+             * @return true-未过期，false-过期
+             */
 //            @Override
 //            public boolean isAccountNonExpired() {
 //                // 账号过期时间不小于当前时间表示未过期
 //                int result = DateUtil.compare(user.getAccountExpiredTime(), new Date());
 //                return result >= 0;
 //            }
-//
-//            /**
-//             * 账号是否未锁定
-//             * @return true-未锁定，false-已锁定
-//             */
+
+            /**
+             * 账号是否未锁定
+             * @return true-未锁定，false-已锁定
+             */
 //            @Override
 //            public boolean isAccountNonLocked() {
 //                return user.getLockFlag() == 0;
 //            }
-//
-//            /**
-//             * 密码是否未过期
-//             * @return true-未过期，false-过期
-//             */
+
+            /**
+             * 密码是否未过期
+             * @return true-未过期，false-过期
+             */
 //            @Override
 //            public boolean isCredentialsNonExpired() {
 //                // 密码过期时间不小于当前时间表示未过期
 //                int result = DateUtil.compare(user.getCredentialsExpiredTime(), new Date());
 //                return result >= 0;
 //            }
-//
-//            /**
-//             * 账号是否可用
-//             * @return true-可用，false-不可用
-//             */
+
+            /**
+             * 账号是否可用
+             * @return true-可用，false-不可用
+             */
 //            @Override
 //            public boolean isEnabled() {
 //                return user.getStatus() == 0;

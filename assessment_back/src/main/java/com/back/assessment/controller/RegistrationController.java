@@ -44,7 +44,7 @@ public class RegistrationController {
         String code = registrationRequest.getCode();
         if(redisCacheServiceImpl.get((email))==null){
             return Response.codeExpired();
-        }else if(userService.registerUser(username,email,password,code)){
+        }else if(userService.registerUser(registrationRequest)){
             return Response.successRegister(username);
         }else {
             return Response.errorCode();

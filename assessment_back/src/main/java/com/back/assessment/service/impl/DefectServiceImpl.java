@@ -29,7 +29,6 @@ public class DefectServiceImpl extends ServiceImpl<DefectMapper, Defect>
     public Defect getDefectById(int ProjectId) {
         return baseMapper.selectById(ProjectId);
     }
-
 }
 
 

@@ -14,10 +14,6 @@ import java.util.List;
 */
 public interface ProjectService extends IService<Project> {
         Project getProjectById(int id);
-//        List<Project> fuzzy_search(String name);
-        List<Project> getProjectsByName(String name);
         void changeProjectWeight(int projectId, int weightId);
-        Page<Project> getProjectByPage(int page, int size);
-        int getPageByID(@RequestParam("size") int size);
         List<Project> getAllProjects();
 }
